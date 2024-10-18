@@ -1,0 +1,23 @@
+#ifndef NAIVEBAYESCLASSIFIER_H
+#define NAIVEBAYESCLASSIFIER_H
+
+#include <unordered_map>
+#include <string>
+#include <vector>
+
+class NaiveBayesClassifier {
+private:
+    std::unordered_map<std::string, int> spamWords;
+    std::unordered_map<std::string, int> nonSpamWords;
+    int totalSpamWords;
+    int totalNonSpamWords;
+    double spamProbability;
+
+public:
+    NaiveBayesClassifier();
+    void trainSpam(const std::vector<std::string>& emailWords);
+    void trainNonSpam(const std::vector<std::string>& emailWords);
+    bool classify(const std::vector<std::string>& emailWords);
+};
+
+#endif

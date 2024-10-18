@@ -1,0 +1,20 @@
+#ifndef BLOOMFILTER_H
+#define BLOOMFILTER_H
+
+#include <vector>
+#include <string>
+#include <functional>
+
+class BloomFilter {
+private:
+    std::vector<bool> bitArray;
+    std::vector<std::hash<std::string>> hashFunctions;
+    int size;
+
+public:
+    BloomFilter(int size, int numHashFunctions);
+    void add(const std::string& item);
+    bool possiblyContains(const std::string& item);
+};
+
+#endif

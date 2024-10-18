@@ -1,0 +1,26 @@
+#include "EmailProcessor.h"
+
+EmailProcessor::EmailProcessor(int bloomSize, int numHashFunctions)
+    : bloomFilter(bloomSize, numHashFunctions) {}
+
+void EmailProcessor::addSpamPattern(const std::string& email) {
+    bloomFilter.add(email);
+}
+
+void EmailProcessor::trainSpamEmail(const std::string& emailContent) {
+    std::vector<std::string> words = textProcessor.tokenize(emailContent);
+    classifier.trainSpam(words);
+}
+
+void EmailProcessor::trainNonSpamEmail(const std::string& emailContent) {
+    std::vector<std::string> words = textProcessor.tokenize(emailContent);
+    classifier.trainNonSpam(words);
+}
+
+bool EmailProcessor::isSpam(const std::string& email, const std::string& content) {
+    if (bloomFilter.possiblyContains(email)) {
+        return true;
+    }
+    std::vector<std::string> words = textProcessor.tokenize(content);
+    return classifier.classify(words);
+}

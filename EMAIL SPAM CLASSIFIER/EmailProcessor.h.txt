@@ -1,0 +1,23 @@
+#ifndef EMAILPROCESSOR_H
+#define EMAILPROCESSOR_H
+
+#include "BloomFilter.h"
+#include "NaiveBayesClassifier.h"
+#include "TextProcessor.h"
+#include <string>
+
+class EmailProcessor {
+private:
+    BloomFilter bloomFilter;
+    NaiveBayesClassifier classifier;
+    TextProcessor textProcessor;
+
+public:
+    EmailProcessor(int bloomSize, int numHashFunctions);
+    void addSpamPattern(const std::string& email);
+    void trainSpamEmail(const std::string& emailContent);
+    void trainNonSpamEmail(const std::string& emailContent);
+    bool isSpam(const std::string& email, const std::string& content);
+};
+
+#endif

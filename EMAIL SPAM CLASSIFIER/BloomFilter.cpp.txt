@@ -1,0 +1,20 @@
+#include "BloomFilter.h"
+
+BloomFilter::BloomFilter(int size, int numHashFunctions) : size(size), bitArray(size, false) {
+    hashFunctions.resize(numHashFunctions);
+}
+
+void BloomFilter::add(const std::string& item) {
+    for (auto& hashFunc : hashFunctions) {
+        int index = hashFunc(item) % size;
+        bitArray[index] = true;
+    }
+}
+
+bool BloomFilter::possiblyContains(const std::string& item) {
+    for (auto& hashFunc : hashFunctions) {
+        int index = hashFunc(item) % size;
+        if (!bitArray[index]) return false;
+    }
+    return true;
+}

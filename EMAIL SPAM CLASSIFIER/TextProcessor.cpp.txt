@@ -1,0 +1,21 @@
+#include "TextProcessor.h"
+#include <sstream>
+
+std::vector<std::string> TextProcessor::tokenize(const std::string& text) {
+    std::vector<std::string> tokens;
+    std::stringstream ss(text);
+    std::string word;
+    while (ss >> word) {
+        if (stopWords.find(word) == stopWords.end()) {  // Skip stop words
+            tokens.push_back(stem(word));
+        }
+    }
+    return tokens;
+}
+
+std::string TextProcessor::stem(const std::string& word) {
+    if (word.size() > 3 && word.substr(word.size() - 3) == "ing") {
+        return word.substr(0, word.size() - 3);
+    }
+    return word;
+}

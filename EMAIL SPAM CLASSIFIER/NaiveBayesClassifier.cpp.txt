@@ -1,0 +1,30 @@
+#include "NaiveBayesClassifier.h"
+#include <cmath>
+
+NaiveBayesClassifier::NaiveBayesClassifier() : totalSpamWords(0), totalNonSpamWords(0), spamProbability(0.5) {}
+
+void NaiveBayesClassifier::trainSpam(const std::vector<std::string>& emailWords) {
+    for (const auto& word : emailWords) {
+        spamWords[word]++;
+        totalSpamWords++;
+    }
+}
+
+void NaiveBayesClassifier::trainNonSpam(const std::vector<std::string>& emailWords) {
+    for (const auto& word : emailWords) {
+        nonSpamWords[word]++;
+        totalNonSpamWords++;
+    }
+}
+
+bool NaiveBayesClassifier::classify(const std::vector<std::string>& emailWords) {
+    double spamScore = log(spamProbability);
+    double nonSpamScore = log(1 - spamProbability);
+
+    for (const auto& word : emailWords) {
+        spamScore += log((spamWords[word] + 1.0) / (totalSpamWords + spamWords.size()));
+        nonSpamScore += log((nonSpamWords[word] + 1.0) / (totalNonSpamWords + nonSpamWords.size()));
+    }
+
+    return spamScore > nonSpamScore;
+}

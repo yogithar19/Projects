@@ -1,0 +1,33 @@
+#include "EmailProcessor.h"
+#include <iostream>
+
+int main() {
+    EmailProcessor emailProcessor(1000, 3);  // Bloom filter with 1000 bits, 3 hash functions
+
+    // Add spam patterns (email addresses or domains)
+    emailProcessor.addSpamPattern("spam@example.com");
+    emailProcessor.addSpamPattern("junkmail@badsite.com");
+
+    // Train the classifier with example spam and non-spam emails
+    emailProcessor.trainSpamEmail("Buy cheap products now!");
+    emailProcessor.trainNonSpamEmail("Hi, let's catch up soon.");
+
+    // Simulate incoming emails
+    std::string incomingEmail1 = "spam@example.com";
+    std::string content1 = "Get rich quick by investing!";
+    if (emailProcessor.isSpam(incomingEmail1, content1)) {
+        std::cout << "Email 1 is spam.\n";
+    } else {
+        std::cout << "Email 1 is not spam.\n";
+    }
+
+    std::string incomingEmail2 = "friend@example.com";
+    std::string content2 = "Hello, I hope you're doing well.";
+    if (emailProcessor.isSpam(incomingEmail2, content2)) {
+        std::cout << "Email 2 is spam.\n";
+    } else {
+        std::cout << "Email 2 is not spam.\n";
+    }
+
+    return 0;
+}
