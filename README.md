@@ -1,3 +1,21 @@
+# Huffman Compression Overview
+
+## Overview
+The *Huffman Compression* project implements a file compression system based on the *Huffman coding* algorithm. Huffman coding is a lossless data compression technique that assigns variable-length codes to input characters, with shorter codes assigned to more frequent characters. This project aims to reduce the size of text files for efficient storage and transmission while maintaining the integrity of the original data.
+
+## Explanation
+The project consists of several key components:
+
+1. *Huffman Tree*:
+   - A binary tree is constructed based on the frequency of characters in the input file. Each leaf node represents a character, and the path from the root to a leaf defines the character's code.
+   - The tree is built by repeatedly combining the least frequent nodes until only one node remains, which becomes the root.
+
+2. *File Compression*:
+   - The program reads the input file, counts the frequency of each character, and constructs the Huffman tree.
+   - Using the tree, it generates a mapping of characters to their corresponding binary codes.
+   - The input data is then encoded using these codes, resulting in a compressed binary file.
+
+
 # Email Spam Filter
 
 ## Overview
